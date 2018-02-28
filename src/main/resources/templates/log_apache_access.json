@@ -1,0 +1,88 @@
+{
+  "name": "Apache Unix Access Logs",
+  "input": "log_apache_access",
+  "output": "accesslog",
+  "groks": [
+    {
+      "pattern": "%{DATA:source} - - \\[%{DATA:dateTime}\\] \"%{WORD:httpVerb} %{GREEDYDATA:url} %{DATA:httpVersion}\" %{NUMBER:statusCode} %{GREEDYDATA:bytes}"
+    },
+    {
+      "pattern": "%{DATA:source} - - \\[%{DATA:dateTime}\\] \"%{GREEDYDATA:url}\" %{NUMBER:statusCode} %{GREEDYDATA:bytes}"
+    }
+  ],
+  "mappings": [
+    {
+      "source": "source",
+      "target": "source"
+    },
+    {
+      "source": "dateTime",
+      "target": "timestamp",
+      "transformers": [
+        {
+          "transformer": "string_to_date",
+          "params": {
+            "formats": [
+              "dd/MMM/yyyy:HH:mm:ss Z"
+            ]
+          }
+        },
+        {
+          "transformer": "date_to_epoch"
+        }
+      ]
+    },
+    {
+      "source": "httpVerb",
+      "target": "httpVerb",
+      "transformers": [
+        {
+          "transformer": "to_upper_case"
+        }
+      ]
+    },
+    {
+      "source": "url",
+      "target": "urlString"
+    },
+    {
+      "source": "httpVersion",
+      "target": "httpVersion",
+      "transformers": [
+        {
+          "transformer": "split_and_take",
+          "params": {
+            "separator": "/",
+            "take": 1
+          }
+        }
+      ]
+    },
+    {
+      "source": "statusCode",
+      "target": "httpStatusCode",
+      "transformers": [
+        {
+          "transformer": "to_long"
+        }
+      ]
+    },
+    {
+      "source": "bytes",
+      "target": "bytes",
+      "transformers": [
+        {
+          "transformer": "map_value",
+          "params": {
+            "map": {
+              "-": 0
+            }
+          }
+        },
+        {
+          "transformer": "to_long"
+        }
+      ]
+    }
+  ]
+}

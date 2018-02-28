@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{1}: %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="file" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="true" />
+        <param name="maxFileSize" value="100MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="/var/log/logger.log" />
+        <param name="Threshold" value="INFO" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{1}: %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="error-file" class="org.apache.log4j.RollingFileAppender">
+        <param name="append" value="true" />
+        <param name="maxFileSize" value="100MB" />
+        <param name="maxBackupIndex" value="10" />
+        <param name="file" value="/var/log/logger.error" />
+        <param name="Threshold" value="ERROR" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{1}: %m%n" />
+        </layout>
+    </appender>
+
+    <logger name="com.niara">
+        <level value="info"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="file" />
+        <appender-ref ref="error-file" />
+    </logger>
+
+</log4j:configuration>
