@@ -2,7 +2,7 @@
 A log parsing engine written in Java for high performance. Additionally, logger is also highly configurable.
 
 ### Logger Architecture
-![ArchitectureImage](https://github.hpe.com/HewlettPackard/logger/blob/master/architecture.png "Logger Architecture")
+![ArchitectureImage](https://github.com/HewlettPackard/logger/blob/master/architecture.png "Logger Architecture")
 
 ### Log Parsing Performance
 
