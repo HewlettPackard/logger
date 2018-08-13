@@ -38,6 +38,7 @@ public class CsvInputBuilder {
     private char fieldSeparator;
     private List<String> csvFields;
     private String[] columnNames;
+    private boolean ignoreQuotes;
 
     private static HashSet<String> getValidParams() {
         HashSet<String> params = new HashSet<>();
@@ -62,6 +63,7 @@ public class CsvInputBuilder {
         this.fieldSeparator = params.get("separator") == null ? DEFAULT_SEPARATOR : ((String) params.get("separator")).charAt(0);
         this.csvFields = params.get("fields") == null ? EMPTY_LIST : (List<String>) params.get("fields");
         this.columnNames = this.csvFields.toArray(new String[csvFields.size()]);
+        this.ignoreQuotes = params.get("ignoreQuotes") == null ? true : (boolean) params.get("ignoreQuotes");
     }
 
     public String getSourceKey() {
@@ -82,6 +84,10 @@ public class CsvInputBuilder {
 
     public String[] getColumnNames() {
         return columnNames;
+    }
+
+    public boolean shouldIgnoreQuotes() {
+        return ignoreQuotes;
     }
 
 }

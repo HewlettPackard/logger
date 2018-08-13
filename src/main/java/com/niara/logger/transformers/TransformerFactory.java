@@ -25,6 +25,9 @@ public class TransformerFactory {
             case "to_long":
                 transformer = new ToLong();
                 break;
+            case "to_float":
+                transformer = new ToFloat();
+                break;
             case "to_string":
                 transformer = new ToString();
                 break;

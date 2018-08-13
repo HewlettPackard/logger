@@ -319,6 +319,8 @@ public abstract class Parser {
             buffer.append(((Long) object).longValue());
         } else if (object instanceof Integer) {
             buffer.append(((Integer) object).intValue());
+        } else if (object instanceof Float) {
+            buffer.append(((Float) object).floatValue());
         } else if (object instanceof Map) {
             final Map<String, Object> map = (Map<String, Object>) object;
             buffer.append('{');

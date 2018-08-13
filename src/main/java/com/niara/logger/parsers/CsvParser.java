@@ -64,7 +64,7 @@ public class CsvParser extends Parser {
                 } else {
                     if (i != 0 && c == '"' && buffer.charAt(i - 1) == '\\') {
                         // It is an escaped char \", so the string is not within quotes.
-                    } else if (c == '"' || c == '\'') {
+                    } else if (!csvInputBuilder.shouldIgnoreQuotes() && (c == '"' || c == '\'')) {
                         withinQuotes = true;
                         quoteChar = c;
                     } else if (c == separator) {
